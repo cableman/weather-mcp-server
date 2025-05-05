@@ -1,4 +1,5 @@
-from mcp.server.fastmcp import FastMCP
+from fastmcp import FastMCP
+
 import httpx
 import os
 from dotenv import load_dotenv
@@ -16,7 +17,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(mess
 logger = logging.getLogger("WeatherMCP")
 
 # Create an MCP server named "AdvancedWeather"
-mcp = FastMCP(name="WeatherMCP",prompt="This is a Weather server. You can get current weather, forecast, air quality, and astronomy information by calling the available tools.")
+mcp = FastMCP(
+    name="WeatherMCP",
+    prompt="This is a Weather server. You can get current weather, forecast, air quality, and astronomy information by calling the available tools."
+    )
 
 # Helper: call WeatherAPI asynchronously
 def validate_date(dt_str: str) -> None:
@@ -201,4 +205,4 @@ async def weather_sports(q: str) -> dict:
 # Run the MCP server
 if __name__ == "__main__":
     # This starts a Server-Sent Events (SSE) endpoint on port 8000
-    mcp.run()
+    mcp.run(transport="sse", host="0.0.0.0", port=9000)

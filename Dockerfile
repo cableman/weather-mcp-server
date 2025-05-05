@@ -16,7 +16,7 @@ RUN pip install --upgrade pip \
 COPY . .
 
 # Expose MCP port
-EXPOSE 8000
+EXPOSE 9000
 
 # Start the MCP server
 CMD ["python", "main.py"]
